@@ -1,5 +1,8 @@
 # dsh-terminal
 
+[![npm version](https://img.shields.io/npm/v/dsh-terminal)](https://www.npmjs.com/package/dsh-terminal)
+[![license](https://img.shields.io/npm/l/dsh-terminal)](LICENSE)
+
 DSH Web UI 的终端面板（Terminal panel）插件，提供真实可交互的 shell 终端：
 
 - **真实 PTY**：宿主端用 [node-pty](https://github.com/microsoft/node-pty) 在 DSH 服务进程里拉起 shell（Windows 下走 ConPTY），不是模拟器。
@@ -13,20 +16,37 @@ DSH Web UI 的终端面板（Terminal panel）插件，提供真实可交互的 
 
 - 已安装 DeepSeek Harness，且 `dsh web`（或 `dsh --profile web`）能正常启动并打开浏览器界面。
 - pnpm ≥ 9（DSH 的 profile 使用 pnpm 管理依赖）。
+- 插件依赖原生模块 node-pty。若安装时 pnpm（≥ 10）拦截其构建脚本，按提示把
+  `node-pty` 加入 profile 目录 `pnpm-workspace.yaml` 的 `allowBuilds` 后重新执行安装命令。
 
 
 ## 安装
 
-### 第一步：安装依赖
+### 方式一：npm 源（推荐）
 
-- `Windows: dsh plugin --profile web add "file:C:/user/abc/terminal` ，假设本项目源代码在: `C:/user/abc/terminal`
-- `macOS:   dsh plugin --profile web add "file:/opt/dsh-terminal`
-- `Linux:   dsh plugin --profile web add "file:~/dsh-terminal`
+包已发布到 npm registry，一行安装：
 
+```powershell
+dsh plugin --profile web add dsh-terminal
+```
 
-### 第二步：登记到加载清单
+### 方式二：GitHub 源
 
-编辑 `~/.dsh/profiles/web/cordis.patch.yml` ，**追加**一个条目：
+```powershell
+dsh plugin --profile web add github:giiiiiithub/terminal
+```
+
+> 仓库内已提交 `lib/` 构建产物，git 源安装时无需现场构建。
+
+### 方式三：本地源码（开发调试）
+
+- `Windows: dsh plugin --profile web add "file:C:/user/abc/terminal"`，假设本项目源代码在: `C:/user/abc/terminal`
+- `macOS:   dsh plugin --profile web add "file:/opt/dsh-terminal"`
+- `Linux:   dsh plugin --profile web add "file:~/dsh-terminal"`
+
+### 登记到加载清单
+
+无论哪种方式安装，都需要编辑 `~/.dsh/profiles/web/cordis.patch.yml`，**追加**一个条目：
 
 ```yaml
 - insert:

@@ -2,7 +2,26 @@
   "name": "dsh-terminal",
   "description": "Terminal panel for the DSH Web UI: a real PTY shell (cmd.exe by default on Windows) rendered in the browser with xterm.js. Host half spawns shells with node-pty; client half is a browser plugin.",
   "version": "0.1.0",
-  "private": true,
+  "license": "MIT",
+  "keywords": [
+    "dsh",
+    "deepseek-harness",
+    "deepseek harness",
+    "plugin",
+    "terminal",
+    "pty",
+    "xterm",
+    "web ui"
+  ],
+  "author": "giiiiiithub",
+  "homepage": "https://github.com/giiiiiithub/terminal#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/giiiiiithub/terminal.git"
+  },
+  "engines": {
+    "node": ">=20"
+  },
   "type": "module",
   "main": "lib/index.mjs",
   "exports": {
@@ -55,6 +74,7 @@
   },
   "scripts": {
     "bundle": "node scripts/gen-xterm-css.mjs && tsdown && node scripts/wrap-client.mjs",
-    "watch": "tsdown --watch"
+    "watch": "tsdown --watch",
+    "prepublishOnly": "npm run bundle"
   }
 }
