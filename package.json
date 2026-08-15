@@ -1,7 +1,7 @@
 {
   "name": "dsh-terminal",
   "description": "Terminal panel for the DSH Web UI: a real PTY shell (cmd.exe by default on Windows) rendered in the browser with xterm.js. Host half spawns shells with node-pty; client half is a browser plugin.",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "license": "MIT",
   "keywords": [
     "dsh",
