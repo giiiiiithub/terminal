@@ -46,17 +46,7 @@ dsh plugin --profile web add github:giiiiiithub/terminal
 - `macOS:   dsh plugin --profile web add "file:/opt/dsh-terminal"`
 - `Linux:   dsh plugin --profile web add "file:~/dsh-terminal"`
 
-### 第二步：登记到加载清单
-
-无论哪种方式安装，都需要编辑 `~/.dsh/profiles/web/cordis.patch.yml`，**追加**一个条目：
-
-```yaml
-- insert:
-    - id: terminal
-      name: dsh-terminal
-```
-
-### 第三步：重启服务
+### 第二步：重启服务
 
 插件含宿主端代码，**必须重启 dsh web 进程**才会加载：
 
@@ -65,7 +55,12 @@ dsh plugin --profile web add github:giiiiiithub/terminal
 dsh web
 ```
 
-### 第四步：验证
+> 版本 ≥ 0.1.1 起插件自带 `dsh.bundle`，`dsh plugin add` 会自动把插件登记进
+> profile 的加载层，无需再手动编辑 `cordis.patch.yml`。
+> 早期版本（0.1.0）需要手动添加条目，升级后请**删除** profile 里手写的
+> `terminal` insert 条目，否则会和 bundle 层自动插入的条目重复。
+
+### 第三步：验证
 
 刷新浏览器页面，会话头部出现 **`>_` 终端** 按钮即安装成功。点击展开面板，首次展开会自动启动一个会话（默认 shell，Windows 下为 cmd.exe）。
 
@@ -76,22 +71,20 @@ dsh web
    dsh plugin --profile web remove dsh-terminal
    ```
    或手动：在 profile 目录执行 `pnpm remove dsh-terminal`。
-2. 删除 `cordis.patch.yml` 中第二步添加的 insert 条目（连同注释）。
+2. 若曾在 profile 的 `cordis.patch.yml` 里手写过 `terminal` insert 条目，一并删除。
 3. 重启 dsh web 服务，刷新页面后 **`>_` 终端** 按钮消失即卸载完成。
 
 ## 配置
 
-默认值可在 patch 条目里覆盖（`cordis.patch.yml`）：
+默认值可在 profile 的 `cordis.patch.yml` 里按 id 定点覆盖（bundle 层之后应用）：
 
 ```yaml
-- insert:
-    - id: terminal
-      name: dsh-terminal
-      config:
-        shell: cmd.exe          # 默认 shell（Windows 下默认即 cmd.exe，也可填完整路径）
-        cwd: <工作目录>           # 新会话默认工作目录，不配置该项时，每次新建terminal都会使用shd当前会话所在工作目录
-        env:                     # 追加到进程环境
-          LANG: "zh_CN.UTF-8"
+- id: terminal
+  config:
+    shell: cmd.exe          # 默认 shell（Windows 下默认即 cmd.exe，也可填完整路径）
+    cwd: <工作目录>           # 新会话默认工作目录，不配置该项时，每次新建terminal都会使用shd当前会话所在工作目录
+    env:                     # 追加到进程环境
+      LANG: "zh_CN.UTF-8"
 ```
 
 | 配置项 | 默认值 | 说明 |
