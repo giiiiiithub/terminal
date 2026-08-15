@@ -24,7 +24,7 @@ DSH Web UI 的终端面板（Terminal panel）插件，提供真实可交互的 
 
 ### 第一步：安装
 
-#### 方式一：npm 源（推荐）
+#### 方式1：npm 源（推荐）
 
 包已发布到 npm registry，一行安装：
 
@@ -32,7 +32,7 @@ DSH Web UI 的终端面板（Terminal panel）插件，提供真实可交互的 
 dsh plugin --profile web add dsh-terminal
 ```
 
-#### 方式二：GitHub 源
+#### 方式2：GitHub 源
 
 ```powershell
 dsh plugin --profile web add github:giiiiiithub/terminal
@@ -40,7 +40,7 @@ dsh plugin --profile web add github:giiiiiithub/terminal
 
 > 仓库内已提交 `lib/` 构建产物，git 源安装时无需现场构建。
 
-#### 方式三：本地源码（开发调试）
+#### 方式3：本地源码（开发调试）
 
 - `Windows: dsh plugin --profile web add "file:C:/user/abc/terminal"`，假设本项目源代码在: `C:/user/abc/terminal`
 - `macOS:   dsh plugin --profile web add "file:/opt/dsh-terminal"`
