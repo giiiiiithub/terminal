@@ -1,0 +1,14 @@
+# dsh-terminal bundle patch.
+#
+# One row hosts both halves of the plugin: the node half provides the `term`
+# Typert Remote service that spawns real PTY shells, and the package's
+# `dsh.client` declaration adds the browser half to the web roster (served
+# at /plugins/dsh-terminal/client.js).
+#
+# `dsh plugin --profile <name> add dsh-terminal` reconciles this bundle into
+# the profile's layer stack automatically; no manual cordis.patch.yml edit is
+# needed.
+
+- insert:
+    - id: terminal
+      name: dsh-terminal
