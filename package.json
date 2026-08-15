@@ -1,0 +1,60 @@
+{
+  "name": "dsh-terminal",
+  "description": "Terminal panel for the DSH Web UI: a real PTY shell (cmd.exe by default on Windows) rendered in the browser with xterm.js. Host half spawns shells with node-pty; client half is a browser plugin.",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "lib/index.mjs",
+  "exports": {
+    ".": {
+      "default": "./lib/index.mjs"
+    },
+    "./typert": {
+      "default": "./lib/typert.mjs"
+    },
+    "./remote": {
+      "default": "./lib/remote.mjs"
+    },
+    "./client": {
+      "default": "./lib/client.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib"
+  ],
+  "dsh": {
+    "client": {
+      "inject": [
+        "@deepseek-ai/dsh-client-connection",
+        "@deepseek-ai/dsh-client-runtime",
+        "@deepseek-ai/dsh-api-remotes",
+        "@deepseek-ai/dsh-client-locale",
+        "@deepseek-ai/dsh-client-ui-slots",
+        "@deepseek-ai/dsh-client-ui-conversation"
+      ],
+      "platform": "web",
+      "immediately": true
+    }
+  },
+  "peerDependencies": {
+    "@deepseek-ai/cordis": "^4.0.1",
+    "@deepseek-ai/dsh-typert-protocol": "^0.1.0-rc.6",
+    "node-pty": "^1.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "@types/react": "~18.3.1",
+    "@xterm/addon-fit": "^0.11.0",
+    "node-pty": "^1.1.0",
+    "react": "^18.2.0",
+    "tsdown": "^0.22.14",
+    "typescript": "^5.9.0",
+    "zod": "^4.4.3",
+    "@xterm/xterm": "^6.0.0"
+  },
+  "scripts": {
+    "bundle": "node scripts/gen-xterm-css.mjs && tsdown && node scripts/wrap-client.mjs",
+    "watch": "tsdown --watch"
+  }
+}
